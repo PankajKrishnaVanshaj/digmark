@@ -99,7 +99,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
               {book.author ? book.author.name : "Unknown"}
             </span>
           </p>
-
+          <p className="font-thin leading-3 text-sm">{book?.category}</p>
           {/* Actions */}
           <div className="flex items-center space-x-4 md:space-x-6">
             {/* Share Button */}

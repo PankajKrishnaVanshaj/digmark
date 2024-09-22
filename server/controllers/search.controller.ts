@@ -32,6 +32,7 @@ const listBooks = async (req: Request, res: Response, next: NextFunction) => {
 
     const query: Record<string, any> = {};
 
+    // Handle search term
     if (searchTerm.trim()) {
       query.$or = [
         { title: { $regex: searchTerm, $options: "i" } },
@@ -39,7 +40,8 @@ const listBooks = async (req: Request, res: Response, next: NextFunction) => {
       ];
     }
 
-    if (decodedCategory) {
+    // Handle category filtering
+    if (decodedCategory && decodedCategory !== "All") {
       query.category = { $regex: new RegExp(`^${decodedCategory}$`, "i") };
     }
 

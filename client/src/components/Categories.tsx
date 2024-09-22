@@ -44,6 +44,7 @@ const Categories = () => {
   };
 
   const categories = [
+    "All",
     "Fiction",
     "Non-Fiction",
     "Business & Economics",

@@ -33,7 +33,7 @@ export const SearchProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<string>("All");
   const [pageLimit, setPageLimit] = useState<number>(9); // default limit
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [books, setBooks] = useState<Book[]>([]);

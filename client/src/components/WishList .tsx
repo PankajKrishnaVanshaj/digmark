@@ -101,33 +101,36 @@ const WishList = () => {
             <div className="p-4 text-red-500 text-center">{error}</div>
           ) : wishList.length > 0 ? (
             <ul className="p-1 space-y-1">
-              {wishList.map((item, index) => (
-                <li
-                  key={item.bookId?._id || item._id || index} // Ensure bookId exists
-                  className="flex items-center space-x-3 bg-gray-100 p-2 rounded-md hover:bg-gray-200 transition duration-150 ease-in-out"
-                >
-                  {item.bookId?.coverImage ? ( // Check if coverImage exists
-                    <Image
-                      src={`${BASE_URL}${item.bookId.coverImage}`}
-                      alt={item.bookId.title}
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 object-cover rounded-md"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 bg-gray-300 rounded-md flex items-center justify-center text-gray-500">
-                      No Image
-                    </div> // Display placeholder if no coverImage
-                  )}
-                  <Link
-                    href={`/${item.bookId?._id || item._id}`} // Ensure bookId exists
-                    className="text-purple-600 text-sm hover:underline line-clamp-2  "
-                    onClick={() => closeMenu()}
+              {wishList
+                .slice()
+                .reverse()
+                .map((item, index) => (
+                  <li
+                    key={item.bookId?._id || item._id || index} // Ensure bookId exists
+                    className="flex items-center space-x-3 bg-gray-100 p-2 rounded-md hover:bg-gray-200 transition duration-150 ease-in-out"
                   >
-                    {item.bookId?.title || "Untitled"}
-                  </Link>
-                </li>
-              ))}
+                    {item.bookId?.coverImage ? ( // Check if coverImage exists
+                      <Image
+                        src={`${BASE_URL}${item.bookId.coverImage}`}
+                        alt={item.bookId.title}
+                        width={48}
+                        height={48}
+                        className="w-12 h-12 object-cover rounded-md"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 bg-gray-300 rounded-md flex items-center justify-center text-gray-500">
+                        No Image
+                      </div> // Display placeholder if no coverImage
+                    )}
+                    <Link
+                      href={`/${item.bookId?._id || item._id}`} // Ensure bookId exists
+                      className="text-purple-600 text-sm hover:underline line-clamp-2  "
+                      onClick={() => closeMenu()}
+                    >
+                      {item.bookId?.title || "Untitled"}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           ) : (
             <div className="p-4 text-center">No items in wish list</div>
