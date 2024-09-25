@@ -1,8 +1,11 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { Download } from "lucide-react";
 
 const DownloadButton = ({ fileurl }: any) => {
+  const { user } = useAuth();
+
   const downloadFileAtUrl = async (url: any) => {
     if (!url) {
       console.error("URL is undefined or null");
@@ -41,8 +44,11 @@ const DownloadButton = ({ fileurl }: any) => {
   const handleDownloadClick = () => {
     const userConfirmed = window.confirm("Do you want to download this file?");
     if (userConfirmed) {
-      console.log("Permission granted for download.");
-      downloadFileAtUrl(fileurl);
+      if (user) {
+        downloadFileAtUrl(fileurl);
+      } else {
+        alert("Please Login first");
+      }
     } else {
       console.log("Download canceled by user.");
     }

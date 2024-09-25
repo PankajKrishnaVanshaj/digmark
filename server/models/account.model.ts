@@ -17,6 +17,11 @@ const userSchema = new mongoose.Schema<User>(
       type: String,
       required: true,
     },
+    isCreator: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     wishList: [
       {
         _id: false,

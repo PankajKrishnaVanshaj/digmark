@@ -27,7 +27,8 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
   const { title, description, category } = req.body;
 
   const authReq = req as AuthRequest;
-  const userId = authReq.userId;
+  const userId = authReq.userId || null; // Safely access userId
+  const isCreator = authReq.isCreator || false; // Safely access isCreator
 
   // Input validation
   if (!title || !description) {
@@ -38,6 +39,11 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
 
   if (!userId) {
     return next(createHttpError(401, "Unauthorized access."));
+  }
+  if (!isCreator) {
+    return res.status(403).json({
+      message: "Forbidden. You are not authorized to create posts.",
+    });
   }
 
   try {

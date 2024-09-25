@@ -2,12 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 import { verify } from "jsonwebtoken";
 import { config } from "../config/EnvConfig";
+import Users from "../models/account.model";
 
 export interface AuthRequest extends Request {
   userId?: string;
+  isCreator?: boolean;
 }
 
-const authenticate = (req: Request, res: Response, next: NextFunction) => {
+const authenticate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.header("Authorization");
 
   if (!token) {
@@ -24,6 +30,14 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
     // Attach userId (or other decoded token details) to the request object
     const _req = req as AuthRequest;
     _req.userId = (decoded as { sub: string }).sub; // Assuming `sub` contains the userId
+
+    // Fetch user data from the database to get `isCreator`
+    const user = await Users.findById(_req.userId).select("isCreator");
+    if (user) {
+      _req.isCreator = user.isCreator;
+    } else {
+      return next(createHttpError(404, "User not found."));
+    }
 
     // Continue to the next middleware or route handler
     next();
