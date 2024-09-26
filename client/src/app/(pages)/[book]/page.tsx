@@ -14,6 +14,7 @@ import FAQ from "@/components/FAQ"; // Importing FAQ component
 import Suggestion from "@/components/Suggestion"; // Importing Suggestion component
 import WishListStatus from "@/components/WishListStatus";
 import axios from "axios";
+import Link from "next/link";
 
 interface SingleBookPageProps {
   params: {
@@ -88,9 +89,9 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
 
         <div className="flex flex-col items-start space-y-2 md:flex-1">
           {/* Title */}
-          <h2 className="text-4xl font-extrabold text-primary-900 leading-tight">
+          <h1 className="text-4xl font-extrabold text-primary-900 leading-none line-clamp-3">
             {book.title}
-          </h2>
+          </h1>
 
           {/* Author */}
           <p className="text-lg text-primary-600">
@@ -190,6 +191,9 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
         {/* Tab Content */}
         {activeTab === "description" && (
           <div>
+            <h1 className="text-3xl font-extrabold text-primary-900 ">
+              {book.title}
+            </h1>
             <p className="text-lg p-2">
               {book.description || "No description available."}
             </p>

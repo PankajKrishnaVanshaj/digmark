@@ -30,8 +30,8 @@ const BookCard = ({ book }: { book: Book }) => {
         </div>
         <div className="flex flex-col justify-between flex-1">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 line-clamp-2 mt-2">
-              {book.title}
+            <h2 className="text-lg font-medium  line-clamp-3 mt-2 leading-5 hover:text-purple-500">
+              <Link href={`/${book._id}`}>{book.title}</Link>
             </h2>
             <p className="text-sm text-gray-600 mt-1">
               by{" "}
