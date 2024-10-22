@@ -63,7 +63,6 @@ const listBooks = async (req: Request, res: Response, next: NextFunction) => {
       pageLimit,
     });
   } catch (err) {
-    console.error("Error listing books:", err);
     return next(
       createHttpError(
         500,
@@ -90,7 +89,6 @@ const getSingleBook = async (
 
     res.json({ message: "Book retrieved successfully", book });
   } catch (err: any) {
-    console.error("Error getting book:", err);
     return next(createHttpError(500, "Error getting book: " + err.message));
   }
 };
@@ -104,9 +102,6 @@ const suggestionBooksByCategory = async (
     // Extract category from request query
     const { category } = req.query;
 
-    // Log the incoming category for debugging
-    console.log("Incoming category:", category);
-
     // Validate category
     if (!category || typeof category !== "string") {
       return next(
@@ -117,16 +112,10 @@ const suggestionBooksByCategory = async (
     // Decode and sanitize the category string
     const decodedCategory = decodeURIComponent(category.trim());
 
-    // Log the decoded category for debugging
-    console.log("Decoded category:", decodedCategory);
-
     // Create the query object to match the category
     const query = {
       category: decodedCategory, // Direct match without regex
     };
-
-    // Log the query for debugging
-    console.log("Query object:", query);
 
     // Fetch books based on the decoded category and populate the author field
     const books = await bookModel
@@ -134,16 +123,12 @@ const suggestionBooksByCategory = async (
       .populate("author", "name") // Only return the author’s name
       .sort({ createdAt: -1 }); // Sort books by creation date in descending order
 
-    // Log the fetched books for debugging
-    console.log("Fetched books:", books);
-
     // Respond with the books that match the category
     res.json({
       message: `Books retrieved successfully for category: ${decodedCategory}`,
       books,
     });
   } catch (err) {
-    console.error("Error finding books by category:", err);
     return next(
       createHttpError(
         500,

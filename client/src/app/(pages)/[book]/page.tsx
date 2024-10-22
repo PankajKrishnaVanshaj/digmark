@@ -117,7 +117,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
             <Eye
               size={24}
               onClick={handleOpenPDF}
-              className="cursor-pointer transition-transform transform hover:scale-110"
+              className="cursor-pointer transition-transform transform hover:scale-110 hover:text-purple-700"
               aria-label="View PDF"
             />
 

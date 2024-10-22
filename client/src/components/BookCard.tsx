@@ -13,7 +13,7 @@ const BookCard = ({ book }: { book: Book }) => {
   };
 
   return (
-    <div className="relative flex gap-3 border p-1 rounded-lg shadow-md overflow-visible transition-transform transform hover:-translate-y-1 hover:shadow-purple-700">
+    <div className="relative flex gap-3 border p-1 rounded-lg shadow-md overflow-visible transition-transform transform hover:-translate-y-0.5 hover:shadow-purple-700">
       {/* Book Image */}
       <div className="relative w-36 h-36">
         <Image
@@ -49,8 +49,8 @@ const BookCard = ({ book }: { book: Book }) => {
             Read more
           </Link>
 
-          <div className="relative flex items-center gap-2">
-            <ShareButton url={`http://localhost:3000/${book._id}`} />
+          <div className=" flex items-center gap-2">
+            {/* <ShareButton url={`http://localhost:3000/${book._id}`} /> */}
 
             <Eye
               onClick={() => showPDF(book.bookPdf)}

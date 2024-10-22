@@ -29,7 +29,6 @@ export const createReview = async (req: Request, res: Response) => {
       .status(201)
       .json({ message: "Review created successfully", review: newReview });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -60,7 +59,6 @@ export const getReviewsByBook = async (req: Request, res: Response) => {
       currentPage: page,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -78,7 +76,6 @@ export const getReviewsForCal = async (req: Request, res: Response) => {
 
     return res.status(200).json(reviews);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -103,7 +100,6 @@ export const updateReview = async (req: Request, res: Response) => {
       .status(200)
       .json({ message: "Review updated successfully", review: updatedReview });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 };
@@ -134,7 +130,6 @@ export const deleteReview = async (
 
     return res.status(200).json({ message: "Review deleted successfully" });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: "Server error" });
   }
 };

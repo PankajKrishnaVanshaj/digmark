@@ -123,14 +123,14 @@ const ReviewForm = ({ size = 24 }) => {
               <div className="flex justify-end gap-4 mt-4">
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors"
+                  className="px-5 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors"
                 >
                   Submit
                 </button>
                 <button
                   type="button"
                   onClick={toggleOpenClose}
-                  className="px-5 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors"
+                  className="px-5 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-colors"
                 >
                   Cancel
                 </button>

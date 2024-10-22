@@ -78,8 +78,6 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
       .status(201)
       .json({ message: "Book created successfully", id: newBook._id });
   } catch (err: any) {
-    console.error("Error creating book:", err);
-
     // Unlink uploaded files if book creation failed
     const files = req.files as UploadedFiles;
     if (files?.coverImage?.[0]) {
@@ -165,7 +163,6 @@ const updateBook = async (req: Request, res: Response, next: NextFunction) => {
 
     res.json({ message: "Book updated successfully", updatedBook });
   } catch (err: any) {
-    console.error("Error updating book:", err);
     return next(createHttpError(500, "Error updating book: " + err.message));
   }
 };
@@ -212,7 +209,6 @@ const deleteBook = async (req: Request, res: Response, next: NextFunction) => {
     await bookModel.findByIdAndDelete(bookId);
     res.json({ message: "Book deleted successfully" });
   } catch (err: any) {
-    console.error("Error deleting book:", err);
     return next(createHttpError(500, "Error deleting book: " + err.message));
   }
 };
@@ -235,7 +231,6 @@ const getBooksByAuthor = async (
 
     res.json({ message: "Books retrieved successfully", books });
   } catch (err: any) {
-    console.error("Error listing books:", err);
     return next(createHttpError(500, "Error listing books: " + err.message));
   }
 };
@@ -256,7 +251,6 @@ const getSingleBook = async (
 
     res.json({ message: "Book retrieved successfully", book });
   } catch (err: any) {
-    console.error("Error getting book:", err);
     return next(createHttpError(500, "Error getting book: " + err.message));
   }
 };

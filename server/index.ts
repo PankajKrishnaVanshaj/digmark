@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import morgan from "morgan";
 import globalErrorHandler from "./middlewares/globalErrorHandler";
 import { config } from "./config/EnvConfig";
 import router from "./routers/index";
@@ -25,6 +26,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
+app.use(morgan("dev"));
 
 // Serve static files from the "public" directory
 // app.use(express.static(path.join(__dirname, "uploads/bookPdfs")));
