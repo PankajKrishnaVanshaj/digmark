@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       try {
         if (token) {
           const response = await axios.get(
-            "http://localhost:55555/api/v1/auth/me",
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/me`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

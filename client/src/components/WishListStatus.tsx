@@ -56,7 +56,7 @@ const WishListStatus = ({ book }) => {
       }
 
       const response = await axios.post(
-        `http://localhost:55555/api/v1/wish-list/${book}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/wish-list/${book}`,
         {},
         {
           headers: {

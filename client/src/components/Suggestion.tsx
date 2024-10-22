@@ -13,9 +13,9 @@ const Suggestion = ({ category }) => {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:55555/api/v1/search?category=${encodeURIComponent(
-            category
-          )}`
+          `${
+            process.env.NEXT_PUBLIC_BASE_URL
+          }/api/v1/search?category=${encodeURIComponent(category)}`
         );
 
         const data = response.data;

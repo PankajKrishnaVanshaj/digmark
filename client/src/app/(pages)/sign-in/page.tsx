@@ -30,7 +30,7 @@ const Signin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:55555/api/v1/auth/signin",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/signin`,
         { email, password },
         {
           headers: {
@@ -54,7 +54,10 @@ const Signin = () => {
   };
 
   const googleLogin = () => {
-    window.open(`http://localhost:55555/api/v1/auth/google`, "_self");
+    window.open(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/google`,
+      "_self"
+    );
   };
 
   return (

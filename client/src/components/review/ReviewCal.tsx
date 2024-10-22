@@ -11,7 +11,7 @@ const ReviewCal = () => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:55555/api/v1/reviews/cal/${book}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/cal/${book}`
         );
 
         // Check if response.data is an array before setting reviews

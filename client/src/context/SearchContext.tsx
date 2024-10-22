@@ -46,7 +46,7 @@ export const SearchProvider: React.FC<{ children: ReactNode }> = ({
 
     try {
       const response = await axios.get(
-        `http://localhost:55555/api/v1/search/all-books`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/search/all-books`,
         {
           params: {
             searchTerm,

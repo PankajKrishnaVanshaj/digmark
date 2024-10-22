@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { Book } from "@/types";
 import { Eye } from "lucide-react";
-import { BASE_URL } from "@/server";
 import ShareButton from "@/components/ShareButton";
 import DownloadButton from "@/components/DownloadButton";
 import ReviewForm from "@/components/review/ReviewForm";
@@ -14,7 +13,6 @@ import FAQ from "@/components/FAQ"; // Importing FAQ component
 import Suggestion from "@/components/Suggestion"; // Importing Suggestion component
 import WishListStatus from "@/components/WishListStatus";
 import axios from "axios";
-import Link from "next/link";
 
 interface SingleBookPageProps {
   params: {
@@ -34,7 +32,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
     const fetchBook = async () => {
       try {
         const response = await axios.get(
-          `${BASE_URL}api/v1/search/${params.book}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/search/${params.book}`
         );
         setBook(response.data.book || null);
       } catch (err: any) {
@@ -49,7 +47,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
 
   // Memoize the URL for the book's PDF
   const bookPdfUrl = useMemo(
-    () => (book ? `${BASE_URL}${book.bookPdf}` : null),
+    () => (book ? `${process.env.NEXT_PUBLIC_BASE_URL}/${book.bookPdf}` : null),
     [book]
   );
 
@@ -78,7 +76,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
       <div className="flex flex-col md:flex-row items-start md:items-center md:space-x-10 mb-10 max-w-4xl mx-auto">
         <div className="relative w-full md:w-1/4 h-80 mb-5 md:mb-0 rounded-md overflow-hidden border-4 border-gray-300 shadow-lg">
           <Image
-            src={`${BASE_URL}${book.coverImage}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}/${book.coverImage}`}
             alt={`Cover image of ${book.title}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
@@ -106,13 +104,13 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
             {/* Share Button */}
             <ShareButton
               url={`http://localhost:3000/${book._id}`}
-              className="transition-transform transform hover:scale-110"
+              // className="transition-transform transform hover:scale-110"
             />
 
             {/* Download Button */}
             <DownloadButton
-              fileurl={`${BASE_URL}${book.bookPdf}`}
-              className="transition-transform transform hover:scale-110"
+              fileurl={`${process.env.NEXT_PUBLIC_BASE_URL}/${book.bookPdf}`}
+              // className="transition-transform transform hover:scale-110"
             />
 
             {/* View PDF */}
@@ -126,14 +124,14 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
             {/* Add to Favorites */}
             <WishListStatus
               book={params.book}
-              className="cursor-pointer transition-transform transform hover:scale-110"
+              // className="cursor-pointer transition-transform transform hover:scale-110"
               aria-label="Add to Favorites"
             />
 
             {/* Add Reviews */}
             <ReviewForm
               size={24}
-              className="transition-transform transform hover:scale-110"
+              // className="transition-transform transform hover:scale-110"
               aria-label="Leave a Review"
             />
           </div>

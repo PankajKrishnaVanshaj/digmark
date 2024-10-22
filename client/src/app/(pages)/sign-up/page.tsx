@@ -35,7 +35,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:55555/api/v1/auth/signup",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/signup`,
         formData,
         {
           headers: {
@@ -57,7 +57,10 @@ const Signup = () => {
   };
 
   const googleLogin = () => {
-    window.open(`http://localhost:55555/api/v1/auth/google`, "_self");
+    window.open(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/google`,
+      "_self"
+    );
   };
 
   return (

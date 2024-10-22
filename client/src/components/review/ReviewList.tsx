@@ -20,7 +20,7 @@ const ReviewList = () => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:55555/api/v1/reviews/${book}?page=${currentPage}&limit=${limit}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/${book}?page=${currentPage}&limit=${limit}`
         );
 
         // Check if response.data.reviews is an array before setting it
@@ -51,11 +51,14 @@ const ReviewList = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:55555/api/v1/reviews/${reviewId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/${reviewId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // Filter out the deleted review
       setReviews(reviews.filter((review) => review._id !== reviewId));
     } catch (error: any) {

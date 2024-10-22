@@ -5,7 +5,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
-import { BASE_URL } from "@/server";
 
 interface WishListItem {
   _id: string;
@@ -61,7 +60,7 @@ const WishList = () => {
           }
 
           const response = await axios.get(
-            `http://localhost:55555/api/v1/wish-list`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/wish-list`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -111,7 +110,7 @@ const WishList = () => {
                   >
                     {item.bookId?.coverImage ? ( // Check if coverImage exists
                       <Image
-                        src={`${BASE_URL}${item.bookId.coverImage}`}
+                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/${item.bookId.coverImage}`}
                         alt={item.bookId.title}
                         width={48}
                         height={48}

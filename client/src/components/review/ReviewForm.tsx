@@ -40,7 +40,7 @@ const ReviewForm = ({ size = 24 }) => {
     try {
       // Post review data to the API with the token in the headers
       await axios.post(
-        `http://localhost:55555/api/v1/reviews/${book}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/${book}`,
         reviewData,
         {
           headers: {
