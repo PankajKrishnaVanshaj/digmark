@@ -3,8 +3,8 @@ import { Book } from "../types/books";
 import Cookies from "js-cookie";
 
 // Base URLs
-export const BASE_URL = "http://localhost:55555/"; //`${import.meta.env.VITE_API_URL}`;
-const baseURL = `${BASE_URL}api/v1`;
+export const BASE_URL = `${import.meta.env.VITE_API_URL}`;
+const baseURL = `${BASE_URL}/api/v1`;
 
 // Create Axios instance
 const api = axios.create({
