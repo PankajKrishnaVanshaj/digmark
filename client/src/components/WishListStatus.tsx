@@ -4,16 +4,20 @@ import axios from "axios";
 import { Heart } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
-const WishListStatus = ({ book }) => {
+type WishListStatusProps = {
+  book: string;
+};
+
+const WishListStatus: React.FC<WishListStatusProps> = ({ book }) => {
   const { user } = useAuth();
   const token = Cookies.get("token");
 
   const [isInWishList, setIsInWishList] = useState(false);
 
   useEffect(() => {
-    if (user?.user.wishList) {
+    if (user?.wishList) {
       setIsInWishList(
-        user.user.wishList.some(
+        user?.wishList.some(
           (item) => item.bookId.toString() === book.toString()
         )
       );

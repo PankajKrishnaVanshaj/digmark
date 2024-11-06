@@ -5,13 +5,27 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "@/context/AuthContext";
 
+// Define types for Review and Pagination
+interface Reviewer {
+  _id: string;
+  name: string;
+}
+
+interface Review {
+  _id: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+  reviewer?: Reviewer;
+}
+
 const ReviewList = () => {
   const { book } = useParams();
   const { user } = useAuth();
-  const [reviews, setReviews] = useState([]); // State to hold reviews
-  const [error, setError] = useState(""); // State to handle errors
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const [totalPages, setTotalPages] = useState(1); // Total number of pages
+  const [reviews, setReviews] = useState<Review[]>([]); // Typed reviews state
+  const [error, setError] = useState<string>(""); // Error state
+  const [currentPage, setCurrentPage] = useState<number>(1); // Current page state
+  const [totalPages, setTotalPages] = useState<number>(1); // Total pages state
   const token = Cookies.get("token"); // Get token from cookies
 
   const limit = 5; // Reviews per page
@@ -39,7 +53,8 @@ const ReviewList = () => {
     fetchReviews();
   }, [book, currentPage]);
 
-  const deleteHandle = async (reviewId) => {
+  const deleteHandle = async (reviewId: string) => {
+    // Explicitly type reviewId as string
     // Confirm before deleting
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this review?"
@@ -60,7 +75,9 @@ const ReviewList = () => {
         }
       );
       // Filter out the deleted review
-      setReviews(reviews.filter((review) => review._id !== reviewId));
+      setReviews((prevReviews) =>
+        prevReviews.filter((review) => review._id !== reviewId)
+      );
     } catch (error: any) {
       console.error(
         "Error deleting Review:",
@@ -94,7 +111,7 @@ const ReviewList = () => {
               <div className="text-md text-gray-700 font-bold flex items-center justify-between">
                 <span>{review.reviewer?.name || "Anonymous"}</span>
                 <span className="text-red-500 cursor-pointer hover:bg-purple-100 rounded-full p-2">
-                  {review?.reviewer?._id === user?.user?._id && (
+                  {review?.reviewer?._id === user?._id && (
                     <Trash2 onClick={() => deleteHandle(review._id)} />
                   )}
                 </span>

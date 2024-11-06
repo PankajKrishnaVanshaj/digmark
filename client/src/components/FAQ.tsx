@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 const FAQ = () => {
-  const [openQuestion, setOpenQuestion] = useState(null);
+  const [openQuestion, setOpenQuestion] = useState<number | null>(null);
 
   const faqs = [
     {
@@ -19,7 +19,7 @@ const FAQ = () => {
     },
   ];
 
-  const toggleQuestion = (index) => {
+  const toggleQuestion = (index: number) => {
     setOpenQuestion(openQuestion === index ? null : index);
   };
 

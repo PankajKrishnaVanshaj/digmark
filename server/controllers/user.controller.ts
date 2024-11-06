@@ -114,7 +114,7 @@ const meUser = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     // Return the user data
-    res.json({ user });
+    res.json(user);
   } catch (error) {
     console.error("Error fetching user data:", error);
     return next(createHttpError(500, "Error while fetching user data."));

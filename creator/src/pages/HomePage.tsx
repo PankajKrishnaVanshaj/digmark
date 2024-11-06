@@ -1,5 +1,3 @@
-import React from "react";
-
 const HomePage = () => {
   // Dummy data for the charts
   const salesData = [

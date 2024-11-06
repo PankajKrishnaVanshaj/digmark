@@ -1,15 +1,35 @@
-// AuthContext.js
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
+// Define the type for User
+type WishListItem = {
+  _id?: string; // Assuming _id is optional and can be false
+  bookId: string; // ObjectId as a string
+};
+
+type User = {
+  _id: string;
+  name: string;
+  email: string;
+  wishList: WishListItem[];
+};
+
+// Define the context value type
+type AuthContextType = {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+};
+
 // Create the AuthContext with default values
-const AuthContext = createContext({ user: null });
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // AuthProvider component to provide auth state to children
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [user, setUser] = useState<User | null>(null);
   const token = Cookies.get("token");
 
   useEffect(() => {
@@ -30,18 +50,11 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (error) {
         console.log("Error fetching user:", error);
-      } finally {
       }
     };
 
     fetchUser();
   }, [token]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     console.log("User object:", user);
-  //   }
-  // }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
@@ -52,5 +65,9 @@ export const AuthProvider = ({ children }) => {
 
 // Custom hook to use the AuthContext
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

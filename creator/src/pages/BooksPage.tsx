@@ -8,7 +8,7 @@ const BooksPage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: getBooksByAuthor,
     staleTime: 1000, // in milliseconds

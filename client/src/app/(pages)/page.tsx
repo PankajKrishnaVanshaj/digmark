@@ -21,11 +21,11 @@ export default function Home() {
   const isNextDisabled = books?.length < pageLimit;
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(currentPage + 1);
   };
 
   const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    setCurrentPage(Math.max(currentPage - 1, 1));
   };
 
   if (isLoading || !books) {

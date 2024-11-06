@@ -249,7 +249,7 @@ const getSingleBook = async (
       return next(createHttpError(404, "Book not found."));
     }
 
-    res.json({ message: "Book retrieved successfully", book });
+    res.json(book);
   } catch (err: any) {
     return next(createHttpError(500, "Error getting book: " + err.message));
   }

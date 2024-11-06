@@ -38,11 +38,11 @@ const CreateBook: React.FC = () => {
   });
 
   useEffect(() => {
-    if (data && data.book) {
+    if (data) {
       setForm({
-        title: data.book.title || "",
-        description: data.book.description || "",
-        category: data.book.category || categories[0],
+        title: data.title || "",
+        description: data.description || "",
+        category: data.category || categories[0],
         coverImage: null,
         bookPdf: null,
       });
@@ -50,7 +50,9 @@ const CreateBook: React.FC = () => {
   }, [data]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });

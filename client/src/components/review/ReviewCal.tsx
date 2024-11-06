@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 
 const ReviewCal = () => {
   const { book } = useParams();
-  const [reviews, setReviews] = useState([]); // State to hold reviews
-  const [error, setError] = useState(""); // State to handle errors
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -35,12 +35,11 @@ const ReviewCal = () => {
     ? reviews.reduce((acc, review) => acc + review.rating, 0)
     : 0;
 
-  const averageRating =
-    reviews.length > 0 ? (totalRating / reviews.length).toFixed(1) : "N/A";
+  const averageRating = reviews.length > 0 ? totalRating / reviews.length : NaN;
 
   const numericAverageRating = isNaN(averageRating)
     ? 0
-    : parseFloat(averageRating);
+    : parseFloat(averageRating.toFixed(1));
 
   return (
     <div className="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-4 text-lg font-medium text-primary-700">

@@ -1,4 +1,4 @@
-import { Bell, Home, Package, Package2 } from "lucide-react";
+import { Bell, Home, Package, Package2, LucideIcon } from "lucide-react";
 import { useEffect } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -18,7 +18,15 @@ const DashboardLayout = () => {
     navigate("/auth/sign-in");
   };
 
-  const NavLinkItem = ({ to, Icon, label }) => (
+  const NavLinkItem = ({
+    to,
+    Icon,
+    label,
+  }: {
+    to: string;
+    Icon: LucideIcon;
+    label: string;
+  }) => (
     <NavLink
       to={to}
       className={({ isActive }) =>

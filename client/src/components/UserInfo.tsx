@@ -7,6 +7,8 @@ import Cookies from "js-cookie";
 const UserInfo = () => {
   const { user } = useAuth();
 
+  console.log(user);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -59,9 +61,9 @@ const UserInfo = () => {
         <div className="absolute right-0 mt-2 w-fit bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
           <div className="p-4 border-b border-gray-200">
             <div className="text-lg font-semibold text-gray-800">
-              {user?.user?.name}
+              {user?.name}
             </div>
-            <div className="text-sm text-purple-500">{user?.user?.email}</div>
+            <div className="text-sm text-purple-500">{user?.email}</div>
           </div>
           <div className="p-2 border-t border-gray-200">
             <button

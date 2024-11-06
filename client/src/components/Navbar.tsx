@@ -15,7 +15,7 @@ const Navbar = () => {
 
   // Check for the token after the component has mounted (client-side only)
   useEffect(() => {
-    const savedToken = Cookies.get("token");
+    const savedToken = Cookies.get("token") ?? null;
     setToken(savedToken);
   }, []);
 

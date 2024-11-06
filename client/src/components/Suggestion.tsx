@@ -3,11 +3,24 @@ import axios from "axios";
 import BookCard from "./BookCard";
 import { useParams } from "next/navigation";
 
-const Suggestion = ({ category }) => {
+// Define a type for the Book items with all expected fields
+type Book = {
+  _id: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  bookPdf: string;
+};
+
+type SuggestionProps = {
+  category: string;
+};
+
+const Suggestion: React.FC<SuggestionProps> = ({ category }) => {
   const { book } = useParams(); // The ID of the book to be skipped
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBooks = async () => {
