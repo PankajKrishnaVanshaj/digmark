@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["localhost", "server.blogify.pankri.com"],
+    domains: ["localhost", "server.digmark.pankri.com"],
   },
 };
 
