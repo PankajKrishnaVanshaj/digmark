@@ -1,6 +1,5 @@
 import axios from "axios";
 import { Book } from "../types/books";
-import Cookies from "js-cookie";
 
 // Base URLs
 export const BASE_URL = `${import.meta.env.VITE_API_URL}`;
@@ -16,7 +15,7 @@ const api = axios.create({
 
 // Axios interceptor to add token from cookies to headers
 api.interceptors.request.use((config) => {
-  const token = Cookies.get("token"); // Retrieve token from cookies
+  const token = localStorage.getItem("token"); // Retrieve token from cookies
   if (token) {
     config.headers.Authorization = `Bearer ${token}`; // Add token to headers if present
   }

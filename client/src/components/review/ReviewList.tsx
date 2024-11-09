@@ -2,7 +2,6 @@ import axios from "axios";
 import { ChevronFirst, ChevronLast, Trash2 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { useAuth } from "@/context/AuthContext";
 
 // Define types for Review and Pagination
@@ -26,7 +25,8 @@ const ReviewList = () => {
   const [error, setError] = useState<string>(""); // Error state
   const [currentPage, setCurrentPage] = useState<number>(1); // Current page state
   const [totalPages, setTotalPages] = useState<number>(1); // Total pages state
-  const token = Cookies.get("token"); // Get token from cookies
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const limit = 5; // Reviews per page
 

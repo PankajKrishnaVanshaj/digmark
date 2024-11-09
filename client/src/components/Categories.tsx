@@ -60,7 +60,7 @@ const Categories = () => {
   return (
     <div className="flex-grow text-center relative z-10">
       <span
-        className="block mb-2 lg:inline-block lg:mb-0 text-gray-700 font-semibold cursor-pointer"
+        className="hidden md:block mb-2 lg:inline-block lg:mb-0 text-gray-700 font-semibold cursor-pointer"
         onMouseEnter={() => setIsOpen(true)}
       >
         Categories

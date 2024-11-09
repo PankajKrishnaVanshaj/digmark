@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { login } from "../http/api";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+
+type LoginResponse = {
+  token: string;
+};
 
 const SignInPage: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +15,7 @@ const SignInPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Check for token outside of useEffect
-  const token = Cookies.get("token");
+  const token = localStorage.getItem("token");
 
   // Redirect if token exists
   useEffect(() => {
@@ -22,10 +25,17 @@ const SignInPage: React.FC = () => {
   }, [navigate, token]); // Ensure that the dependency array is correct
 
   // Mutation to handle login API call
-  const mutation = useMutation({
+  const mutation = useMutation<
+    LoginResponse,
+    Error,
+    { email: string; password: string }
+  >({
     mutationFn: login,
-    onSuccess: () => {
-      navigate("/dashboard/home");
+    onSuccess: (data) => {
+      if (data?.token) {
+        localStorage.setItem("token", data.token); // Save token in localStorage
+        navigate("/dashboard/home");
+      }
     },
     onError: () => {
       setError("Login failed. Please check your email and password.");

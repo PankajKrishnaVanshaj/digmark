@@ -1,7 +1,6 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 // Define the type for User
 type WishListItem = {
@@ -30,7 +29,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  const token = Cookies.get("token");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   useEffect(() => {
     const fetchUser = async () => {

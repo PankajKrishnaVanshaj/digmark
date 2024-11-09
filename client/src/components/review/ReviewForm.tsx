@@ -4,7 +4,6 @@ import { MessagesSquare } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 const ReviewForm = ({ size = 24 }) => {
   const { book } = useParams(); // Assuming `bookId` is a parameter in your URL
@@ -12,7 +11,8 @@ const ReviewForm = ({ size = 24 }) => {
   const [rating, setRating] = useState(0); // Manage rating state
   const [comment, setComment] = useState(""); // Manage comment state
   const [error, setError] = useState(""); // Handle error message
-  const token = Cookies.get("token"); // Get token from cookies
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const toggleOpenClose = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);

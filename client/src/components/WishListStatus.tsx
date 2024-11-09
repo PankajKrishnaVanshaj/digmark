@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import axios from "axios";
 import { Heart } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -10,7 +9,8 @@ type WishListStatusProps = {
 
 const WishListStatus: React.FC<WishListStatusProps> = ({ book }) => {
   const { user } = useAuth();
-  const token = Cookies.get("token");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const [isInWishList, setIsInWishList] = useState(false);
 

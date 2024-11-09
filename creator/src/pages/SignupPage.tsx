@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { register } from "../http/api";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+
+type RegisterResponse = {
+  token: string;
+};
 
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,7 +17,7 @@ const SignUpPage: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
 
-  const token = Cookies.get("token");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (token) {
@@ -27,10 +30,17 @@ const SignUpPage: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const mutation = useMutation({
+  const mutation = useMutation<
+    RegisterResponse,
+    Error,
+    { name: string; email: string; password: string }
+  >({
     mutationFn: register,
-    onSuccess: () => {
-      navigate("/dashboard/home");
+    onSuccess: (data) => {
+      if (data?.token) {
+        localStorage.setItem("token", data.token); // Save token in localStorage
+        navigate("/dashboard/home"); // Navigate after storing the token
+      }
     },
     onError: (error: any) => {
       console.error("Registration failed:", error);

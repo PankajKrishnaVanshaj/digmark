@@ -42,13 +42,10 @@ userRouter.get(
     failureRedirect: `${config.clientDomain}`,
   }),
   (req, res) => {
-    const { user, token } = req.user as { user: User; token: string }; // Explicitly cast the type
+    const { token } = req.user as { user: User; token: string }; // Explicitly cast the type
 
     // Set token in a cookie
-    res.cookie("token", token);
-
-    // Successful authentication, redirect home.
-    res.redirect(`${config.clientDomain}`);
+    res.redirect(`${config.creatorDomain}/auth?token=${token}`);
   }
 );
 

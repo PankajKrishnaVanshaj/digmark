@@ -6,16 +6,16 @@ import Link from "next/link";
 import Categories from "./Categories";
 import WaffleMenu from "./WaffleMenu";
 import SearchBar from "./SearchBar";
-import Cookies from "js-cookie";
 import UserInfo from "./UserInfo";
 import WishList from "./WishList ";
 
 const Navbar = () => {
   const [token, setToken] = useState<string | null>(null);
 
-  // Check for the token after the component has mounted (client-side only)
   useEffect(() => {
-    const savedToken = Cookies.get("token") ?? null;
+    const savedToken =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
     setToken(savedToken);
   }, []);
 
@@ -47,7 +47,9 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <WaffleMenu />
+          <span className="hidden md:block">
+            <WaffleMenu />
+          </span>
           {token ? (
             <div className="flex items-center gap-5">
               <WishList />

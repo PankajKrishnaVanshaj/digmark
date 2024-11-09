@@ -14,7 +14,8 @@ const Signup = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const token = Cookies.get("token");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   // Redirect if token exists
   useEffect(() => {
@@ -44,6 +45,9 @@ const Signup = () => {
           withCredentials: true, // Enable cookies to be sent across origins
         }
       );
+
+      localStorage.setItem("token", response.data.token);
+
       // Handle success response
       setSuccess("Signup successful!");
       setFormData({ name: "", email: "", password: "" }); // Reset form
@@ -148,14 +152,14 @@ const Signup = () => {
             </button>
           </div>
         </form>
-        <div className="w-full flex items-center justify-center pt-5">
+        {/* <div className="w-full flex items-center justify-center pt-5">
           <button
             onClick={googleLogin}
             className="flex items-center justify-center w-full py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm bg-white dark:bg-gray-800 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
           >
             Sign in with Google
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

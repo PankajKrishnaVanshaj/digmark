@@ -1,20 +1,19 @@
 import { Bell, Home, Package, Package2, LucideIcon } from "lucide-react";
 import { useEffect } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
-  const token = Cookies.get("token");
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (!token) {
       navigate("/auth/sign-in");
     }
-  }, [token, navigate]); // Added token and navigate to the dependency array
+  }, [token, navigate]);
 
   const handleLogout = () => {
-    Cookies.remove("token");
+    localStorage.removeItem("token");
     navigate("/auth/sign-in");
   };
 

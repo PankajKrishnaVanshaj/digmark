@@ -2,12 +2,9 @@
 import { useAuth } from "@/context/AuthContext";
 import { CircleUserRound, LogOut } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import Cookies from "js-cookie";
 
 const UserInfo = () => {
   const { user } = useAuth();
-
-  console.log(user);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -21,7 +18,7 @@ const UserInfo = () => {
   };
 
   const handleLogout = () => {
-    Cookies.remove("token");
+    localStorage.removeItem("token");
     window.location.href = "/sign-in";
   };
 

@@ -42,13 +42,9 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
       expiresIn: "7d",
     });
 
-    // Respond with the token
-    // Set token in a cookie
-    res.cookie("token", token);
     res.status(201).json({
       success: true,
       message: "Account created successfully",
-      newUser,
       token,
     });
   } catch (err) {
@@ -83,8 +79,6 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
       expiresIn: "7d",
     });
 
-    // Respond with the token
-    res.cookie("token", token); // Set cookie options if needed
     res.status(200).json({
       success: true,
       message: "Login successful",

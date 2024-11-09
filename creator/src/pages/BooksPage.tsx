@@ -111,7 +111,7 @@ const BooksPage = () => {
                 <tr key={book._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <img
-                      src={`${BASE_URL}${book.coverImage}`}
+                      src={`${BASE_URL}/${book.coverImage}`}
                       alt={book.title}
                       className="h-10 w-10 rounded-full"
                     />

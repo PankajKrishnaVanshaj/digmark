@@ -2,7 +2,6 @@
 import { Heart } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -23,7 +22,8 @@ const WishList = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const token = Cookies.get("token");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
