@@ -85,14 +85,14 @@ const apps: App[] = [
     icon: "/appicons/pankri.png",
   },
   {
-    name: "FacePin",
-    url: "https://facepin.pankri.com/",
+    name: "Facefeed",
+    url: "https://Facefeed.pankri.com/",
     icon: "/appicons/facepin.png",
   },
   {
-    name: "SpyHub",
-    url: "https://spyhub.pankri.com/",
-    icon: "/appicons/spyhub.png",
+    name: "Jobhive",
+    url: "https://jobhive.pankri.com/",
+    icon: "/appicons/jobhive.png",
   },
 
   {
@@ -111,11 +111,11 @@ const apps: App[] = [
     icon: "/appicons/chaspo.png",
   },
 
-  {
-    name: "WorkBoard",
-    url: "https://workboard.pankri.com/",
-    icon: "/appicons/workboard.png",
-  },
+  // {
+  //   name: "WorkBoard",
+  //   url: "https://workboard.pankri.com/",
+  //   icon: "/appicons/workboard.png",
+  // },
 
   {
     name: "DraSpo",
