@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }));
 
-    return bookUrls;
+    return [...bookUrls];
   } catch (error) {
     console.error("Error generating sitemap:", error);
     return [];
