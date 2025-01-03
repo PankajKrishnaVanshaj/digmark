@@ -32,14 +32,12 @@ const ReviewCal = () => {
 
   // Ensure reviews is an array before using .reduce()
   const totalRating = Array.isArray(reviews)
-    ? reviews.reduce((acc, review) => acc + review.rating, 0)
+    ? reviews.reduce((acc, review) => acc + (typeof review.rating === 'number' ? review.rating : 0), 0)
     : 0;
 
-  const averageRating = reviews.length > 0 ? totalRating / reviews.length : NaN;
+  const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0; // Avoid NaN
 
-  const numericAverageRating = isNaN(averageRating)
-    ? 0
-    : parseFloat(averageRating.toFixed(1));
+  const numericAverageRating = parseFloat(averageRating.toFixed(1)); // Ensure numeric value with one decimal
 
   return (
     <div className="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-4 text-lg font-medium text-primary-700">
@@ -63,13 +61,13 @@ const ReviewCal = () => {
             </span>
           ))}
         </span>
-        <span className="text-xl font-semibold ml-2">{averageRating}</span>
+        <span className="text-xl font-semibold ml-2">{numericAverageRating}</span>
       </div>
 
       {/* Rating out of 5 */}
       <div className="flex items-center space-x-1 text-sm text-gray-500">
         <span className="hidden md:inline text-base font-medium">
-          {averageRating}
+          {numericAverageRating}
         </span>
         <span className="text-gray-400">/5</span>
       </div>

@@ -89,22 +89,22 @@ const apps: App[] = [
     url: "https://Facefeed.pankri.com/",
     icon: "/appicons/facepin.png",
   },
-  {
-    name: "Jobhive",
-    url: "https://jobhive.pankri.com/",
-    icon: "/appicons/jobhive.png",
-  },
+  // {
+  //   name: "Jobhive",
+  //   url: "https://jobhive.pankri.com/",
+  //   icon: "/appicons/jobhive.png",
+  // },
 
   {
     name: "SkillGrow",
     url: "https://skillgrow.pankri.com/",
     icon: "/appicons/skillgrow.png",
   },
-  {
-    name: "ToolsCloud",
-    url: "https://toolscloud.pankri.com/",
-    icon: "/appicons/toolscloud.png",
-  },
+  // {
+  //   name: "ToolsCloud",
+  //   url: "https://toolscloud.pankri.com/",
+  //   icon: "/appicons/toolscloud.png",
+  // },
   {
     name: "ChaSpo",
     url: "https://chaspo.pankri.com/",
@@ -117,9 +117,9 @@ const apps: App[] = [
   //   icon: "/appicons/workboard.png",
   // },
 
-  {
-    name: "DraSpo",
-    url: "https://draspo.pankri.com/",
-    icon: "/appicons/draspo.png",
-  },
+  // {
+  //   name: "DraSpo",
+  //   url: "https://draspo.pankri.com/",
+  //   icon: "/appicons/draspo.png",
+  // },
 ];
