@@ -1,0 +1,28 @@
+{
+    "theme_color": "#8936FF",
+    "background_color": "#ff9d2e",
+    "icons": [
+      {
+        "purpose": "maskable",
+        "sizes": "512x512",
+        "src": "icon512_maskable.png",
+        "type": "image/png"
+      },
+      {
+        "purpose": "any",
+        "sizes": "512x512",
+        "src": "icon512_rounded.png",
+        "type": "image/png"
+      }
+    ],
+    "orientation": "any",
+    "display": "standalone",
+    "dir": "auto",
+    "lang": "en-GB",
+    "name": "PK DigMark",
+    "short_name": "PK DigMark",
+    "start_url": "/",
+    "scope": "/",
+    "description": "Welcome to PK DigMark, your premier digital assets marketplace for buying and selling a diverse range of digital products. Explore our extensive collection of software, eBooks, music, digital art, stock photos, videos, 3D models, graphics, templates, fonts, plugins, animations, web design elements, virtual reality experiences, and gaming assets. PK DigMark provides a secure and user-friendly platform for creators and buyers alike, empowering you to monetize your digital content and discover unique digital goods. Whether you're a graphic designer, musician, author, or developer, PK DigMark is the ultimate destination for all your digital asset needs. Join us today to unlock the full potential of digital commerce and elevate your online presence with high-quality digital products tailored to your creative projects."
+  }
+  

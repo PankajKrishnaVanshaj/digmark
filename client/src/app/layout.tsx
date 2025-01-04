@@ -10,6 +10,7 @@ import ScrollButtons from "@/components/ScrollButtons";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  manifest: "/manifest.json",
   metadataBase: new URL("https://digmark.pankri.com"),
 
   title: "PK DigMark - Your Premier Marketplace for Digital Assets",
