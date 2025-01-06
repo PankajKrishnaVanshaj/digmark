@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/digmark.png",
+        url: "/appicons/digmark.png",
         width: 1200,
         height: 630,
         alt: "PK DigMark Digital Assets Marketplace",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "PK DigMark - Your Premier Marketplace for Digital Assets",
     description:
       "Explore PK DigMark's marketplace for digital assets, featuring software, eBooks, music, stock photos, and more. Buy and sell digital products securely.",
-    images: ["/digmark.png"],
+    images: ["/appicons/digmark.png"],
     site: "PK DigMark",
   },
 };

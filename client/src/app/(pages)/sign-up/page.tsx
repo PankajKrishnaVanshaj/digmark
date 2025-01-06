@@ -22,7 +22,7 @@ const Signup = () => {
     if (token) {
       router.push("/"); // Navigates to the home page
     }
-  }, []);
+  }, [router, token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

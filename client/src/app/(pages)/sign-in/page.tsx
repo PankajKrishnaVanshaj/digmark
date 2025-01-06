@@ -19,7 +19,7 @@ const Signin = () => {
     if (token) {
       router.push("/"); // Navigates to the home page
     }
-  }, []);
+  }, [router, token]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

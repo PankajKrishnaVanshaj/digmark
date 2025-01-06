@@ -1,20 +1,6 @@
-import SingleBookPage from "@/components/SingleBookPage"; 
-import axios from "axios";
+import SingleBookPage from "@/components/SingleBookPage";
+import { getBookDetails } from "@/utils/book";
 
-// Function to fetch book details
-export const getBookDetails = async (bookId: string) => {
-  try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/search/${bookId}`
-    );
-    return response.data.book || null;
-  } catch (error) {
-    console.error("Error fetching book details:", error);
-    return null;
-  }
-};
-
-// Function to generate metadata for the page (SEO optimization)
 export async function generateMetadata({ params }: { params: { book: string } }) {
   const book = await getBookDetails(params.book);
 
@@ -41,7 +27,6 @@ export async function generateMetadata({ params }: { params: { book: string } })
     };
   }
 
-  // SEO optimized metadata
   return {
     title: `${book.title} - Book Details`,
     description: book.description || `Discover this amazing book titled "${book.title}".`,
@@ -68,13 +53,11 @@ export async function generateMetadata({ params }: { params: { book: string } })
       description: book.description || `Discover this amazing book titled "${book.title}".`,
       image: `${process.env.NEXT_PUBLIC_BASE_URL}/${book.coverImage}`,
     },
-    // Adding canonical URL to avoid duplicate content
     robots: "index, follow",
     canonical: `/${params.book}`,
   };
 }
 
-// BookPage component
 export default function BookPage({ params }: { params: { book: string } }) {
   return <SingleBookPage params={params} />;
 }
