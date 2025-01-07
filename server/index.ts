@@ -23,8 +23,8 @@ const corsOptions: cors.CorsOptions = {
 // Apply CORS middleware
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '5mb' })); // For JSON payloads
+app.use(express.urlencoded({ limit: '5mb', extended: true })); // For URL-encoded payloads
 app.use(passport.initialize());
 app.use(morgan("dev"));
 
