@@ -44,12 +44,13 @@ const Categories = () => {
   };
 
   const categories = [
-    "Business & Economics",
+    "All",
     "Health & Fitness",
-    "Personal Development & Mindset",
-    "Productivity & Time Management",
-    "Online Income & Digital Marketing",
     "Technology & Trends",
+    "Business & Economics",
+    "Productivity & Time Management",
+    "Personal Development & Mindset",
+    "Online Income & Digital Marketing",
   ];
 
   return (
