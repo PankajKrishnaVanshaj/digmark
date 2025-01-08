@@ -44,17 +44,12 @@ const Categories = () => {
   };
 
   const categories = [
-    "All",
-    "Fiction",
-    "Non-Fiction",
     "Business & Economics",
     "Health & Fitness",
-    "Education & Learning",
-    "Science & Technology",
-    "Children’s Books",
-    "Cookbooks, Food & Wine",
-    "Religion & Spirituality",
-    "Arts & Photography",
+    "Personal Development & Mindset",
+    "Productivity & Time Management",
+    "Online Income & Digital Marketing",
+    "Technology & Trends",
   ];
 
   return (
