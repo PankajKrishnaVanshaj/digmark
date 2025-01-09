@@ -80,43 +80,44 @@ export default async function BookPage({
 }) {
   const book = await getBookDetails(params.book);
 
-  if (!book) {
-    return <p>Book not found.</p>;
-  }
-
   // Structured Data
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Book",
-    headline: book.title,
-    datePublished: book.createdAt,
-    dateModified: book.updatedAt || book.created,
-    description:
-      book.description || `Discover this amazing book titled "${book.title}".`,
-    image: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`,
-    author: {
-      "@type": "Person",
-      name: book.author || "PK DigMark",
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${
-        book.authorId || "appicons/digmark.png"
-      }`,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "PK DigMark",
-      logo: {
-        "@type": "ImageObject",
-        url: "/appicons/digmark.png",
-      },
-    },
-  };
+  const structuredData = book
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Book",
+        headline: book.title,
+        datePublished: book.createdAt,
+        dateModified: book.updatedAt || book.createdAt,
+        description:
+          book.description ||
+          `Discover this amazing book titled "${book.title}".`,
+        image: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`,
+        author: {
+          "@type": "Person",
+          name: book.author || "PK DigMark",
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/${
+            book.authorId || "appicons/digmark.png"
+          }`,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "PK DigMark",
+          logo: {
+            "@type": "ImageObject",
+            url: "/appicons/digmark.png",
+          },
+        },
+      }
+    : null;
 
   return (
     <section>
       {structuredData && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
         />
       )}
       <SingleBookPage params={params} />
