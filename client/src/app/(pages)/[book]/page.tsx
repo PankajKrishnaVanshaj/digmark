@@ -99,7 +99,7 @@ export default async function BookPage({
   };
 
   return (
-    <>
+    
       <section>
         {structuredData && (
           <script
@@ -107,8 +107,8 @@ export default async function BookPage({
             dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
           />
         )}
-      </section>
       <SingleBookPage params={params} />
-    </>
+      </section>
+    
   );
 }
