@@ -80,44 +80,20 @@ export default async function BookPage({
 }) {
   const book = await getBookDetails(params.book);
 
-  // Structured Data
-  const structuredData = book
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Book",
-        headline: book.title,
-        datePublished: book.createdAt,
-        dateModified: book.updatedAt || book.createdAt,
-        description:
-          book.description ||
-          `Discover this amazing book titled "${book.title}".`,
-        image: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`,
-        author: {
-          "@type": "Person",
-          name: book.author || "PK DigMark",
-          url: `${process.env.NEXT_PUBLIC_BASE_URL}/${
-            book.authorId || "appicons/digmark.png"
-          }`,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "PK DigMark",
-          logo: {
-            "@type": "ImageObject",
-            url: "/appicons/digmark.png",
-          },
-        },
-      }
-    : null;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: book.title,
+    image: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`,
+    description: book.description,
+  };
 
   return (
     <section>
-      {structuredData && (
+      {jsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredData),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
       <SingleBookPage params={params} />
