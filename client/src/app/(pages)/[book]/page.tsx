@@ -23,7 +23,7 @@ export async function generateMetadata({
         description: "The requested book could not be found.",
         images: [
           {
-            url: `/digmark.png`,
+            url: `/appicons/digmark.png`,
             alt: "Book not found",
           },
         ],
@@ -32,7 +32,7 @@ export async function generateMetadata({
         card: "summary_large_image",
         title: "Book Not Found",
         description: "The requested book could not be found.",
-        image: `/digmark.png`,
+        image: `/appicons/digmark.png`,
       },
     };
   }
@@ -80,23 +80,38 @@ export default async function BookPage({
 }) {
   const book = await getBookDetails(params.book);
 
+  // Fallback values
+  const title = book?.title || "Unknown Title";
+  const description =
+    book?.description || `Details about the book titled "${title}" are unavailable.`;
+  const author = book?.author || "PK digmark";
+  const imageUrl = book?.coverImage
+    ? `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`
+    : "/appicons/digmark.png";
+
+  // JSON-LD structured data
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: book.title,
-    image: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`,
-    description: book.description,
-  };
+    "@type": "Book",
+    name: title,
+    image: imageUrl,
+    description: description,
+    author: {
+      "@type": "Person",
+      name: author,
+    },
+    genre: book?.genre || "General",
+    datePublished: book.createdAt,
+    dateModified: book.updatedAt || book.createdAt,  };
 
   return (
     <section>
-      {jsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SingleBookPage params={params} />
     </section>
   );
 }
+
