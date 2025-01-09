@@ -98,7 +98,7 @@ export default async function BookPage({
     description: description,
     author: {
       "@type": "Person",
-      name: author,
+      name: author.name ||"PK DigMark",
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/${book.authorId || "blogify.png"}`,
 
     },
