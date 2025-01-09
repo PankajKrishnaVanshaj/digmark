@@ -99,6 +99,8 @@ export default async function BookPage({
     author: {
       "@type": "Person",
       name: author,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/${book.authorId || "blogify.png"}`,
+
     },
     publisher: {
       "@type": "Organization",

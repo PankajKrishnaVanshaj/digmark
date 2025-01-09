@@ -79,7 +79,7 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
+    "@type": "Blog",
     name: "PK DigMark - Your Premier Marketplace for Digital Assets",
     url: "https://digmark.pankri.com",
     description:
