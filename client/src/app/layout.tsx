@@ -79,6 +79,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "PK DigMark",
+              url: "https://digmark.pankri.com",
+              description:
+                "PK DigMark is your premier marketplace for digital assets, offering a wide range of software, eBooks, music, digital art, and more.",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://digmark.pankri.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "PK DigMark",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://digmark.pankri.com/appicons/digmark.png",
+                },
+              },
+            }),
+          }}
+        />
+      </head>
       <body className={inter.className}>
         <AuthProvider>
           <SearchProvider>

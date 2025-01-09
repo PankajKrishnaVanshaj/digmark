@@ -1,7 +1,17 @@
 import SingleBookPage from "@/components/SingleBookPage";
 import { getBookDetails } from "@/utils/book";
 
-export async function generateMetadata({ params }: { params: { book: string } }) {
+interface SingleBook {
+  params: {
+    book: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { book: string };
+}) {
   const book = await getBookDetails(params.book);
 
   if (!book) {
@@ -29,11 +39,14 @@ export async function generateMetadata({ params }: { params: { book: string } })
 
   return {
     title: `${book.title} - Book Details`,
-    description: book.description || `Discover this amazing book titled "${book.title}".`,
-    keywords: book.title + ", book, " + (book.genre || "") + ", " + (book.author || ""),
+    description:
+      book.description || `Discover this amazing book titled "${book.title}".`,
+    keywords: `${book.title}, book, ${book.genre || ""}, ${book.author || ""}`,
     openGraph: {
       title: book.title,
-      description: book.description || `Discover this amazing book titled "${book.title}".`,
+      description:
+        book.description ||
+        `Discover this amazing book titled "${book.title}".`,
       images: [
         {
           url: `${process.env.NEXT_PUBLIC_BASE_URL}/${book.coverImage}`,
@@ -50,7 +63,9 @@ export async function generateMetadata({ params }: { params: { book: string } })
     twitter: {
       card: "summary_large_image",
       title: book.title,
-      description: book.description || `Discover this amazing book titled "${book.title}".`,
+      description:
+        book.description ||
+        `Discover this amazing book titled "${book.title}".`,
       image: `${process.env.NEXT_PUBLIC_BASE_URL}/${book.coverImage}`,
     },
     robots: "index, follow",
@@ -58,6 +73,40 @@ export async function generateMetadata({ params }: { params: { book: string } })
   };
 }
 
-export default function BookPage({ params }: { params: { book: string } }) {
-  return <SingleBookPage params={params} />;
+export default async function BookPage({
+  params,
+}: {
+  params: { book: string };
+}) {
+  const book = await getBookDetails(params.book);
+
+  if (!book) {
+    return <p>Book not found.</p>;
+  }
+
+  // Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: book.title,
+    author: book.author || "PK DigMark",
+    genre: book.genre || "General",
+    datePublished: book.createdAt,
+    dateModified: book.updatedAt || book.created,
+    description:
+      book.description || `Discover this amazing book titled "${book.title}".`,
+    image: `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`,
+  };
+
+  return (
+    <>
+      <section>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </section>
+      <SingleBookPage params={params} />
+    </>
+  );
 }

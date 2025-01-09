@@ -103,7 +103,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
           <div className="flex items-center space-x-4 md:space-x-6">
             {/* Share Button */}
             <ShareButton
-              url={`https://digmark.pankri.com/${book._id}`}
+              url={window.location.href}
               // className="transition-transform transform hover:scale-110"
             />
 
