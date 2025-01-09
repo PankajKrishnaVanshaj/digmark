@@ -92,13 +92,21 @@ export default async function BookPage({
   // JSON-LD structured data
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Book",
-    name: title,
+    "@type": "Article",
+    headline: title,
     image: imageUrl,
     description: description,
     author: {
       "@type": "Person",
       name: author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "PK Digmark",
+      logo: {
+        "@type": "ImageObject",
+        url: "/appicons/digmark.png",
+      },
     },
     genre: book?.genre || "General",
     datePublished: book.createdAt,
