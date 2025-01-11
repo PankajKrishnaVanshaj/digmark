@@ -21,22 +21,25 @@ const Navbar = () => {
 
   return (
     <nav className="border-b">
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-4 px-6 md:px-8">
-        <div>
-          <Link href="/">
-            <div className="flex items-center gap-2">
-              <div className="relative w-12 h-12">
-                <Image
-                  src="/appicons/digmark.png"
-                  alt="logo"
-                  layout="fill"
-                  objectFit="contain"
-                />
-              </div>
-              <span className="text-2xl font-extrabold text-primary-600 tracking-tight">
-                PK DigMark
-              </span>
+      <div className="max-w-7xl mx-auto flex items-center justify-between py-2 px-6 md:px-8">
+        <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
+            {/* Logo Section */}
+            <div className="relative w-12 h-12">
+              <Image
+                src="/appicons/digmark.png"
+                alt="logo"
+                width={48} // Explicit width for proper sizing
+                height={48} // Explicit height for proper sizing
+                priority // Preload the image for faster rendering
+                className="object-contain"
+              />
             </div>
+
+            {/* Text Section */}
+            <span className="text-2xl font-extrabold mt-[-1rem] text-primary-600 tracking-tight">
+              PK DigMark
+            </span>
           </Link>
         </div>
 

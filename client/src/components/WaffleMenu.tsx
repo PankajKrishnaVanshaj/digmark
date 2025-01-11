@@ -49,7 +49,7 @@ const WaffleMenu: React.FC = () => {
 
   return (
     <div className="relative z-10" ref={menuRef}>
-      <button onClick={toggleMenu}>
+      <button onClick={toggleMenu} aria-label="Toggle menu">
         <Grip size={30} />
       </button>
       {isOpen && (

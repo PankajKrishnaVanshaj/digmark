@@ -26,7 +26,7 @@ const SearchBar: React.FC = () => {
       <button
         type="submit"
         className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-primary-500 text-white rounded-full hover:bg-primary-600 focus:outline-none transition-all flex items-center justify-center"
-      >
+        aria-label="Toggle search">
         <Search size={24} color="black" />
       </button>
     </form>

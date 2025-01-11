@@ -56,7 +56,7 @@ const DownloadButton = ({ fileurl }: any) => {
 
   return (
     <div className="p-2 rounded-full hover:bg-gray-200 transition-colors duration-200">
-      <button onClick={handleDownloadClick}>
+      <button onClick={handleDownloadClick} aria-label="Toggle Download">
         <Download size={24} />
       </button>
     </div>

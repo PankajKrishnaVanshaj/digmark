@@ -32,7 +32,11 @@ const ReviewCal = () => {
 
   // Ensure reviews is an array before using .reduce()
   const totalRating = Array.isArray(reviews)
-    ? reviews.reduce((acc, review) => acc + (typeof review.rating === 'number' ? review.rating : 0), 0)
+    ? reviews.reduce(
+        (acc, review) =>
+          acc + (typeof review.rating === "number" ? review.rating : 0),
+        0
+      )
     : 0;
 
   const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0; // Avoid NaN
@@ -61,15 +65,17 @@ const ReviewCal = () => {
             </span>
           ))}
         </span>
-        <span className="text-xl font-semibold ml-2">{numericAverageRating}</span>
+        <span className="text-xl font-semibold ml-2">
+          {numericAverageRating}
+        </span>
       </div>
 
       {/* Rating out of 5 */}
-      <div className="flex items-center space-x-1 text-sm text-gray-500">
-        <span className="hidden md:inline text-base font-medium">
+      <div className="flex items-center space-x-1 text-sm text-gray-700">
+        <span className="hidden md:inline text-base font-medium text-gray-800">
           {numericAverageRating}
         </span>
-        <span className="text-gray-400">/5</span>
+        <span className="text-gray-600">/5</span>
       </div>
 
       {/* Total Ratings */}
