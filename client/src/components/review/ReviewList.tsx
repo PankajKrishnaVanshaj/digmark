@@ -45,8 +45,10 @@ const ReviewList = () => {
         }
         setTotalPages(response.data.totalPages);
       } catch (error) {
-        console.error("Failed to fetch reviews:", error);
-        setError("Failed to load reviews. Please try again.");
+        // console.error("Failed to fetch reviews:", error);
+        setError(
+          "No reviews yet. Help others by sharing your experience—yours could be the first!"
+        );
       }
     };
 

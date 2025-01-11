@@ -26,7 +26,7 @@ const CreateBook: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
 
-  const { data, isLoading: isFetching, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["get book by id", bookId],
     queryFn: () => getBookById(bookId as string),
     staleTime: 10000,
@@ -72,9 +72,7 @@ const CreateBook: React.FC = () => {
       );
     },
   });
-  
-  const isLoading = mutation.status === "pending";
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
@@ -111,7 +109,7 @@ const CreateBook: React.FC = () => {
     navigate("/dashboard/books");
   };
 
-  if (isFetching) return <div>Loading book details...</div>;
+  if (isLoading) return <div>Loading book details...</div>;
   if (isError) return <div>Error loading book details</div>;
 
   return (
@@ -140,7 +138,7 @@ const CreateBook: React.FC = () => {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-3  gap-6">
             <div>
               <label
                 htmlFor="coverImage"
@@ -227,14 +225,9 @@ const CreateBook: React.FC = () => {
             </button>
             <button
               type="submit"
-              className={`w-full ${
-                isLoading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-indigo-600 hover:bg-indigo-700"
-              } text-white py-3 rounded-md shadow transition ease-in-out duration-300`}
-              disabled={isLoading}
+              className="w-full bg-indigo-600 text-white py-3 rounded-md shadow hover:bg-indigo-700 transition ease-in-out duration-300"
             >
-              {isLoading ? "Submitting..." : bookId ? "Update Book" : "Create Book"}
+              {bookId ? "Update Book" : "Create Book"}
             </button>
           </div>
 

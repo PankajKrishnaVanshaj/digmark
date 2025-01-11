@@ -2,15 +2,11 @@ import { Book } from "@/types";
 import { Eye, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo } from "react";
 import WishListStatus from "./WishListStatus";
+import BookPDFViewer from "./BookPDFViewer";
 
 const BookCard = ({ book }: { book: Book }) => {
-  const showPDF = (bookPdf: string) => {
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/${bookPdf}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
-
   const handleShare = async () => {
     const baseUrl = `${window.location.origin}/${book._id}`;
     const shareData = {
@@ -30,12 +26,11 @@ const BookCard = ({ book }: { book: Book }) => {
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error occurred.";
-     
     }
   };
 
   return (
-    <div className="relative flex gap-3 border p-1 rounded-lg shadow-md overflow-visible transition-transform transform hover:-translate-y-0.5 hover:shadow-purple-700">
+    <div className="relative flex gap-3 border mx-1 p-1 rounded-lg shadow-md overflow-visible transition-transform transform hover:-translate-y-0.5 hover:shadow-purple-700">
       {/* Book Image */}
       <div className="relative w-36 h-36">
         <Image
@@ -86,11 +81,9 @@ const BookCard = ({ book }: { book: Book }) => {
             >
               <Share2 size={22} />
             </button>
-            <Eye
-              onClick={() => showPDF(book.bookPdf)}
-              className="cursor-pointer hover:text-purple-700"
-              aria-label={`View PDF for the book titled "${book.title}"`}
-            />
+
+            <BookPDFViewer bookPdf={book.bookPdf} />
+
             <WishListStatus book={book._id} />
           </div>
         </div>

@@ -3,16 +3,16 @@
 import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { Book } from "@/types";
-import { Eye } from "lucide-react";
 import ShareButton from "@/components/ShareButton";
 import DownloadButton from "@/components/DownloadButton";
 import ReviewForm from "@/components/review/ReviewForm";
 import ReviewList from "@/components/review/ReviewList";
 import ReviewCal from "@/components/review/ReviewCal";
-import FAQ from "@/components/FAQ"; 
-import Suggestion from "@/components/Suggestion"; 
+import FAQ from "@/components/FAQ";
+import Suggestion from "@/components/Suggestion";
 import WishListStatus from "@/components/WishListStatus";
 import axios from "axios";
+import BookPDFViewer from './BookPDFViewer'
 
 interface SingleBookPageProps {
   params: {
@@ -44,19 +44,6 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
 
     fetchBook();
   }, [params.book]);
-
-  // Memoize the URL for the book's PDF
-  const bookPdfUrl = useMemo(
-    () => (book ? `${process.env.NEXT_PUBLIC_BASE_URL}/${book.bookPdf}` : null),
-    [book]
-  );
-
-  // Handle opening the PDF in a new window
-  const handleOpenPDF = () => {
-    if (bookPdfUrl) {
-      window.open(bookPdfUrl, "_blank", "noopener,noreferrer");
-    }
-  };
 
   if (isLoading) {
     return <div className="text-center text-lg">Loading book details...</div>;
@@ -114,12 +101,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
             />
 
             {/* View PDF */}
-            <Eye
-              size={24}
-              onClick={handleOpenPDF}
-              className="cursor-pointer transition-transform transform hover:scale-110 hover:text-purple-700"
-              aria-label="View PDF"
-            />
+            <BookPDFViewer bookPdf={book.bookPdf} />
 
             {/* Add to Favorites */}
             <WishListStatus

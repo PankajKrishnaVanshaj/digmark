@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Banner = () => {
   return (
-    <div className="mx-auto max-w-7xl py-10">
+    <div className="max-w-7xl py-10 mx-1">
       <div className="relative">
         {/* Background Image */}
         <Image
@@ -26,7 +26,7 @@ const Banner = () => {
           sizes="100vw"
           loading="lazy"
         />
-        <h3 className="absolute left-5 sm:left-10 top-1/2 w-full max-w-md sm:max-w-3xl -translate-y-1/2 text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white p-4 sm:p-0">
+        <h3 className="absolute sm:left-10 top-1/2 w-full max-w-md sm:max-w-3xl -translate-y-1/2 text-2xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white p-4 sm:p-0">
           Elevate Your Digital Experience: Confidently Buy and Sell Unique
           Digital Assets
         </h3>
