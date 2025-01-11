@@ -26,13 +26,11 @@ const BookCard = ({ book }: { book: Book }) => {
       } else {
         // Fallback: Copy the link to clipboard
         await navigator.clipboard.writeText(baseUrl);
-        alert("Link copied to clipboard!");
       }
     } catch (error: unknown) {
       const errorMessage =
         error instanceof Error ? error.message : "Unknown error occurred.";
-      alert(`An error occurred while sharing: ${errorMessage}`);
-      console.error("Share failed:", error);
+     
     }
   };
 
