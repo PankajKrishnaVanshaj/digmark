@@ -26,7 +26,11 @@ const CreateBook: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
 
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data,
+    isLoading: isFetching,
+    isError,
+  } = useQuery({
     queryKey: ["get book by id", bookId],
     queryFn: () => getBookById(bookId as string),
     staleTime: 10000,
@@ -109,7 +113,9 @@ const CreateBook: React.FC = () => {
     navigate("/dashboard/books");
   };
 
-  if (isLoading) return <div>Loading book details...</div>;
+  const isLoading = mutation.status === "pending"; 
+
+  if (isFetching) return <div>Loading book details...</div>;
   if (isError) return <div>Error loading book details</div>;
 
   return (
@@ -225,9 +231,18 @@ const CreateBook: React.FC = () => {
             </button>
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white py-3 rounded-md shadow hover:bg-indigo-700 transition ease-in-out duration-300"
+              className={`w-full ${
+                isLoading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-indigo-600 hover:bg-indigo-700"
+              } text-white py-3 rounded-md shadow transition ease-in-out duration-300`}
+              disabled={isLoading}
             >
-              {bookId ? "Update Book" : "Create Book"}
+              {isLoading
+                ? "Submitting..."
+                : bookId
+                ? "Update Book"
+                : "Create Book"}
             </button>
           </div>
 
