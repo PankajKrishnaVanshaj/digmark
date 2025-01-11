@@ -9,9 +9,65 @@ const BookPDFViewer = ({ bookPdf }) => {
   );
 
   // Handle opening the PDF in a new window with an inline viewer
-  const handleOpenPDF = () => {
-    if (bookPdfUrl) {
-      window.open(bookPdfUrl, "_blank", "noopener,noreferrer");
+  const handleOpenPDF = (url) => {
+    if (url) {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const pdfViewer = window.open("", "_blank");
+      if (pdfViewer) {
+        // If on mobile, try to open the PDF in an iframe first
+        if (isMobile) {
+          pdfViewer.document.write(`
+            <html>
+              <head>
+                <title>Book Viewer</title>
+                <style>
+                  body {
+                    margin: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100%;
+                  }
+                  iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                  }
+                </style>
+              </head>
+              <body>
+                <iframe src="${url}" style="border: none;"></iframe>
+              </body>
+            </html>
+          `);
+        } else {
+          // For non-mobile devices, try to use the PDF viewer
+          pdfViewer.document.write(`
+            <html>
+              <head>
+                <title>Book Viewer</title>
+                <style>
+                  body {
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                  }
+                  iframe {
+                    flex: 1;
+                    width: 100%;
+                    border: none;
+                  }
+                </style>
+              </head>
+              <body>
+                <iframe src="${url}" width="100%" height="100%" style="border: none;"></iframe>
+              </body>
+            </html>
+          `);
+        }
+        pdfViewer.document.close();
+      }
     }
   };
 
