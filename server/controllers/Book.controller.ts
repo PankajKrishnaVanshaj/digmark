@@ -40,11 +40,34 @@ const createBook = async (req: Request, res: Response, next: NextFunction) => {
   if (!userId) {
     return next(createHttpError(401, "Unauthorized access."));
   }
+
   if (!isCreator) {
+    // Remove uploaded files since the user is not authorized to create posts
+    const files = req.files as UploadedFiles;
+
+    if (files?.coverImage?.[0]) {
+      const coverImagePath = path.resolve(
+        __dirname,
+        `../../uploads/coverImages/${files.coverImage[0].filename}`
+      );
+      // console.log(`Removing unauthorized upload: ${coverImagePath}`);
+      deleteFile(coverImagePath);
+    }
+
+    if (files?.bookPdf?.[0]) {
+      const bookPdfPath = path.resolve(
+        __dirname,
+        `../../uploads/bookPdfs/${files.bookPdf[0].filename}`
+      );
+      // console.log(`Removing unauthorized upload: ${bookPdfPath}`);
+      deleteFile(bookPdfPath);
+    }
+
     return res.status(403).json({
       message: "Forbidden. You are not authorized to create posts.",
     });
   }
+
 
   try {
     const user = await userModel.findById(userId).select("-password");

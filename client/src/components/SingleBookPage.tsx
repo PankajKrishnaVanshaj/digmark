@@ -12,7 +12,7 @@ import FAQ from "@/components/FAQ";
 import Suggestion from "@/components/Suggestion";
 import WishListStatus from "@/components/WishListStatus";
 import axios from "axios";
-import BookPDFViewer from './BookPDFViewer'
+import BookPDFViewer from "./BookPDFViewer";
 
 interface SingleBookPageProps {
   params: {
@@ -124,8 +124,8 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
       </div>
 
       {/* Tabs for Description, Reviews, FAQ, and Suggestion */}
-      <div className="bg-white p-6 mx-7 rounded-md shadow-lg text-primary-800">
-        <div className="flex space-x-4 border-gray-300 mb-4">
+      <div className="py-6 rounded-md text-primary-800">
+        <div className="flex flex-col md:flex-row gap-2 border-gray-300 mb-4">
           <button
             className={`py-2 px-4 font-semibold ${
               activeTab === "suggestion"

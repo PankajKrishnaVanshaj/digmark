@@ -52,7 +52,7 @@ const Suggestion: React.FC<SuggestionProps> = ({ category }) => {
   }, [category]); // Depend on category if you want to refetch when it changes
 
   return (
-    <div className="p-2">
+    <div className="">
       {isLoading && <p>Loading suggestions...</p>}
       {!isLoading && !error && books.length > 0 ? (
         <div className="grid grid-cols-1 gap-2 md:grid-cols-3 max-w-7xl mx-auto mb-10">
