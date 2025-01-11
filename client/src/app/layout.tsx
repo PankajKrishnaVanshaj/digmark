@@ -103,7 +103,7 @@ export default function RootLayout({
             <Navbar />
             <ScrollButtons />
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </SearchProvider>
         </AuthProvider>
       </body>
