@@ -13,59 +13,42 @@ const BookPDFViewer = ({ bookPdf }) => {
     if (url) {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       const pdfViewer = window.open("", "_blank");
+
       if (pdfViewer) {
-        // If on mobile, try to open the PDF in an iframe first
+        pdfViewer.document.write(`
+          <html>
+            <head>
+              <title>Book Viewer</title>
+              <style>
+                body {
+                  margin: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 100%;
+                }
+                iframe {
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                }
+              </style>
+            </head>
+            <body>
+              <iframe src="${url}" style="border: none;" type="application/pdf"></iframe>
+            </body>
+          </html>
+        `);
+
+        // For mobile devices, add the PDF viewer plugin (force inline behavior)
         if (isMobile) {
-          pdfViewer.document.write(`
-            <html>
-              <head>
-                <title>Book Viewer</title>
-                <style>
-                  body {
-                    margin: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100%;
-                  }
-                  iframe {
-                    width: 100%;
-                    height: 100%;
-                    border: none;
-                  }
-                </style>
-              </head>
-              <body>
-                <iframe src="${url}" style="border: none;"></iframe>
-              </body>
-            </html>
-          `);
-        } else {
-          // For non-mobile devices, try to use the PDF viewer
-          pdfViewer.document.write(`
-            <html>
-              <head>
-                <title>Book Viewer</title>
-                <style>
-                  body {
-                    margin: 0;
-                    display: flex;
-                    flex-direction: column;
-                    height: 100%;
-                  }
-                  iframe {
-                    flex: 1;
-                    width: 100%;
-                    border: none;
-                  }
-                </style>
-              </head>
-              <body>
-                <iframe src="${url}" width="100%" height="100%" style="border: none;"></iframe>
-              </body>
-            </html>
-          `);
+          // Add a <meta> tag to disable downloading on mobile devices
+          pdfViewer.document.head.innerHTML += `
+            <meta http-equiv="Content-Type" content="application/pdf; charset=utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          `;
         }
+
         pdfViewer.document.close();
       }
     }
