@@ -20,7 +20,7 @@ const BookPDFViewer = ({ bookPdf }) => {
   };
 
   return (
-    <div className="">
+    <div className="hidden md:block">
       <Eye
         onClick={openDialog}
         className="cursor-pointer hover:text-purple-700"
@@ -35,7 +35,7 @@ const BookPDFViewer = ({ bookPdf }) => {
           aria-modal="true"
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
         >
-          <div className="bg-white p-2 rounded-lg shadow-lg w-full max-w-4xl max-h-full overflow-auto">
+          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-4xl max-h-full overflow-auto sm:w-11/12 md:w-3/4 lg:w-1/2">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-800">
                 Book PDF Viewer
@@ -50,7 +50,7 @@ const BookPDFViewer = ({ bookPdf }) => {
             </div>
 
             {/* Iframe to display PDF */}
-            <div className="mt-2">
+            <div className="mt-4">
               <iframe
                 src={bookPdfUrl}
                 width="100%"
