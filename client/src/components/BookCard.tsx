@@ -1,5 +1,5 @@
 import { Book } from "@/types";
-import { Eye } from "lucide-react";
+import { Eye, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -11,6 +11,31 @@ const BookCard = ({ book }: { book: Book }) => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
+  const handleShare = async () => {
+    const baseUrl = `${window.location.origin}/${book._id}`;
+    const shareData = {
+      title: book.title,
+      text: book.description,
+      url: baseUrl,
+    };
+
+    try {
+      if (navigator.share) {
+        // Use Web Share API if supported
+        await navigator.share(shareData);
+      } else {
+        // Fallback: Copy the link to clipboard
+        await navigator.clipboard.writeText(baseUrl);
+        alert("Link copied to clipboard!");
+      }
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error occurred.";
+      alert(`An error occurred while sharing: ${errorMessage}`);
+      console.error("Share failed:", error);
+    }
+  };
+
   return (
     <div className="relative flex gap-3 border p-1 rounded-lg shadow-md overflow-visible transition-transform transform hover:-translate-y-0.5 hover:shadow-purple-700">
       {/* Book Image */}
@@ -18,8 +43,7 @@ const BookCard = ({ book }: { book: Book }) => {
         <Image
           src={`${process.env.NEXT_PUBLIC_BASE_URL}/${book.coverImage}`}
           alt={book.title}
-          width={144} // Set explicit dimensions matching `w-36 h-36`
-          height={144}
+          fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="rounded-lg object-cover"
           priority
@@ -30,7 +54,11 @@ const BookCard = ({ book }: { book: Book }) => {
       <div className="flex flex-col justify-between flex-1">
         <div>
           <h2 className="text-md font-semibold line-clamp-3 mt-2 leading-5">
-            <Link href={`/${book._id}`} className="hover:underline hover:text-purple-700">
+            <Link
+              href={`/${book._id}`}
+              className="hover:text-purple-700"
+              aria-label={`Learn more about the book titled "${book.title}"`}
+            >
               {book.title}
             </Link>
           </h2>
@@ -49,16 +77,22 @@ const BookCard = ({ book }: { book: Book }) => {
             className="block py-1 px-4 rounded border border-purple-500 text-purple-700 font-medium text-sm hover:bg-purple-500 hover:text-white transition"
             aria-label={`Read more about ${book.title}`}
           >
-            Read more
+            Learn more
           </Link>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={handleShare}
+              className="p-2 rounded-full hover:bg-gray-200 transition-colors duration-200"
+              aria-label={`Share the book titled "${book.title}"`}
+            >
+              <Share2 size={22} />
+            </button>
             <Eye
               onClick={() => showPDF(book.bookPdf)}
               className="cursor-pointer hover:text-purple-700"
-              aria-label={`View PDF for ${book.title}`}
+              aria-label={`View PDF for the book titled "${book.title}"`}
             />
-
             <WishListStatus book={book._id} />
           </div>
         </div>
