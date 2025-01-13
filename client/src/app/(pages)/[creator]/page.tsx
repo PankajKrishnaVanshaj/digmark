@@ -12,7 +12,7 @@ const Creator = () => {
   }, [router]);
 
   return (
-    <div>Creator</div>
+    <div></div>
   );
 };
 
