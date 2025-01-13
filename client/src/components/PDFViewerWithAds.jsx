@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 const PDFViewerWithAds = ({ book }) => {
   // Memoize the URL for the book's PDF
   const bookPdfUrl = useMemo(
-    () => (book ? `${process.env.NEXT_PUBLIC_BASE_URL}/${book.bookPdf}` : null),
+    () => (book ? `${process.env.NEXT_PUBLIC_BASE_URL}/pdf/${book.bookPdf}` : null),
     [book]
   );
 

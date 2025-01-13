@@ -3,16 +3,16 @@ import { getBookDetails } from "@/utils/book";
 
 interface SingleBook {
   params: {
-    book: string;
+    creator: string;
   };
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { book: string };
+  params: { creator: string };
 }) {
-  const book = await getBookDetails(params.book);
+  const book = await getBookDetails(params.creator);
 
   if (!book) {
     return {
@@ -69,22 +69,22 @@ export async function generateMetadata({
       image: `${process.env.NEXT_PUBLIC_BASE_URL}/${book.coverImage}`,
     },
     robots: "index, follow",
-    canonical: `/${params.book}`,
+    canonical: `/${params.creator}`,
   };
 }
 
 export default async function BookPage({
   params,
 }: {
-  params: { book: string };
+  params: { creator: string };
 }) {
-  const book = await getBookDetails(params.book);
+  const book = await getBookDetails(params.creator);
 
   // Fallback values
   const title = book?.title || "Unknown Title";
   const description =
     book?.description || `Details about the book titled "${title}" are unavailable.`;
-  const author = book?.author || "PK digmark";
+  const author = book?.author || "PK Digmark";
   const imageUrl = book?.coverImage
     ? `${process.env.NEXT_PUBLIC_BASE_URL || ""}/${book.coverImage}`
     : "/appicons/digmark.png";
@@ -98,9 +98,8 @@ export default async function BookPage({
     description: description,
     author: {
       "@type": "Person",
-      name: author.name ||"PK DigMark",
+      name: typeof author === "string" ? author : author.name || "PK Digmark",
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/${book.authorId || "blogify.png"}`,
-
     },
     publisher: {
       "@type": "Organization",
@@ -111,8 +110,9 @@ export default async function BookPage({
       },
     },
     genre: book?.genre || "General",
-    datePublished: book.createdAt,
-    dateModified: book.updatedAt || book.createdAt,  };
+    datePublished: book?.createdAt || "Unknown",
+    dateModified: book?.updatedAt || book?.createdAt || "Unknown",
+  };
 
   return (
     <section>
@@ -124,4 +124,3 @@ export default async function BookPage({
     </section>
   );
 }
-

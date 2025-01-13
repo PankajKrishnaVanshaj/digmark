@@ -8,7 +8,7 @@ import BookPDFViewer from "./BookPDFViewer";
 
 const BookCard = ({ book }: { book: Book }) => {
   const handleShare = async () => {
-    const baseUrl = `${window.location.origin}/${book._id}`;
+    const baseUrl = `${window.location.origin}/${book._id}/book`;
     const shareData = {
       title: book.title,
       text: book.description,
@@ -48,7 +48,7 @@ const BookCard = ({ book }: { book: Book }) => {
         <div>
           <h2 className="text-md font-semibold line-clamp-3 mt-2 leading-5">
             <Link
-              href={`/${book._id}`}
+              href={`/${book._id}/book`}
               className="hover:text-purple-700"
               aria-label={`Learn more about the book titled "${book.title}"`}
             >
@@ -66,7 +66,7 @@ const BookCard = ({ book }: { book: Book }) => {
         {/* Actions Section */}
         <div className="flex items-center justify-between mt-3">
           <Link
-            href={`/${book._id}`}
+            href={`/${book._id}/book`}
             className="block py-1 px-4 rounded border border-purple-500 text-purple-700 font-medium text-sm hover:bg-purple-500 hover:text-white transition"
             aria-label={`Read more about ${book.title}`}
           >

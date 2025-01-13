@@ -16,7 +16,7 @@ import BookPDFViewer from "./BookPDFViewer";
 
 interface SingleBookPageProps {
   params: {
-    book: string;
+    creator: string;
   };
 }
 
@@ -32,7 +32,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
     const fetchBook = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/search/${params.book}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/search/${params.creator}`
         );
         setBook(response.data.book || null);
       } catch (err: any) {
@@ -43,7 +43,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
     };
 
     fetchBook();
-  }, [params.book]);
+  }, [params.creator]);
 
   if (isLoading) {
     return <div className="text-center text-lg">Loading book details...</div>;
@@ -96,7 +96,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
 
             {/* Download Button */}
             <DownloadButton
-              fileurl={`${process.env.NEXT_PUBLIC_BASE_URL}/${book.bookPdf}`}
+              fileurl={`${process.env.NEXT_PUBLIC_BASE_URL}/pdf/${book.bookPdf}`}
               // className="transition-transform transform hover:scale-110"
             />
 
@@ -105,7 +105,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
 
             {/* Add to Favorites */}
             <WishListStatus
-              book={params.book}
+              book={params.creator}
               // className="cursor-pointer transition-transform transform hover:scale-110"
               aria-label="Add to Favorites"
             />
