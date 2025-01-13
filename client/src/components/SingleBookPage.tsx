@@ -58,7 +58,7 @@ const SingleBookPage: React.FC<SingleBookPageProps> = ({ params }) => {
   }
 
   return (
-    <div className="p-5">
+    <div className="py-5 px-2 md:p-5">
       {/* Cover Image and Details */}
       <div className="flex flex-col md:flex-row items-start md:items-center md:space-x-10 mb-10 max-w-4xl mx-auto">
         <div className="relative w-full md:w-1/4 h-80 mb-5 md:mb-0 rounded-md overflow-hidden border-4 border-gray-300 shadow-lg">
