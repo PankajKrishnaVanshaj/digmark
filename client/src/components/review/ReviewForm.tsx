@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const ReviewForm = ({ size = 24 }) => {
-  const { book } = useParams(); // Assuming `bookId` is a parameter in your URL
+  const { creator } = useParams(); // Assuming `bookId` is a parameter in your URL
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(0); // Manage rating state
   const [comment, setComment] = useState(""); // Manage comment state
@@ -40,7 +40,7 @@ const ReviewForm = ({ size = 24 }) => {
     try {
       // Post review data to the API with the token in the headers
       await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/${book}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/${creator}`,
         reviewData,
         {
           headers: {

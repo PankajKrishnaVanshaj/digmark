@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ReviewCal = () => {
-  const { book } = useParams();
+  const { creator } = useParams();
   const [reviews, setReviews] = useState<any[]>([]);
   const [error, setError] = useState("");
 
@@ -11,7 +11,7 @@ const ReviewCal = () => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/cal/${book}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/cal/${creator}`
         );
 
         // Check if response.data is an array before setting reviews
@@ -28,7 +28,7 @@ const ReviewCal = () => {
     };
 
     fetchReviews();
-  }, [book]);
+  }, [creator]);
 
   // Ensure reviews is an array before using .reduce()
   const totalRating = Array.isArray(reviews)

@@ -19,7 +19,7 @@ interface Review {
 }
 
 const ReviewList = () => {
-  const { book } = useParams();
+  const { creator } = useParams();
   const { user } = useAuth();
   const [reviews, setReviews] = useState<Review[]>([]); // Typed reviews state
   const [error, setError] = useState<string>(""); // Error state
@@ -34,7 +34,7 @@ const ReviewList = () => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/${book}?page=${currentPage}&limit=${limit}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/reviews/${creator}?page=${currentPage}&limit=${limit}`
         );
 
         // Check if response.data.reviews is an array before setting it
@@ -53,7 +53,7 @@ const ReviewList = () => {
     };
 
     fetchReviews();
-  }, [book, currentPage]);
+  }, [creator, currentPage]);
 
   const deleteHandle = async (reviewId: string) => {
     // Explicitly type reviewId as string
