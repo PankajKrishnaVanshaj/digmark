@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 const BookPDFViewer = ({ bookPdf }) => {
   // Memoize the URL for the book's PDF
   const bookPdfUrl = useMemo(
-    () => (bookPdf ? `${process.env.NEXT_PUBLIC_BASE_URL}/${bookPdf}` : null),
+    () => (bookPdf ? `${process.env.NEXT_PUBLIC_BASE_URL}/pdf/${bookPdf}` : null),
     [bookPdf]
   );
 
