@@ -4,6 +4,7 @@ import { upload } from "../config/multer";
 import {
   createBook,
   deleteBook,
+  getAllBooks,
   getBooksByAuthor,
   getSingleBook,
   updateBook,
@@ -34,5 +35,6 @@ bookRouter.put(
 bookRouter.delete("/:bookId", authenticate, deleteBook);
 bookRouter.get("/get-books-by-author", authenticate, getBooksByAuthor);
 bookRouter.get("/:bookId", getSingleBook);
+bookRouter.get("/", getAllBooks);
 
 export default bookRouter;

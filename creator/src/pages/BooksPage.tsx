@@ -3,15 +3,18 @@ import { Pencil, Trash } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL, deleteBook, getBooksByAuthor } from "../http/api";
 import { Book } from "../types/books";
+import { useState } from "react";
 
 const BooksPage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["books"],
-    queryFn: getBooksByAuthor,
-    staleTime: 1000, // in milliseconds
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10; // Number of books per page
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["books", currentPage],
+    queryFn: () => getBooksByAuthor(currentPage, limit),
   });
 
   const deleteMutation = useMutation({
@@ -37,21 +40,12 @@ const BooksPage = () => {
     return <div>Loading...</div>;
   }
 
-  // if (isError) {
-  //   return <div>Error fetching books</div>;
-  // }
-
-  // Extract the books array
-  const books = data?.books || [];
-
-  // Check if books is an array
-  if (!Array.isArray(books)) {
-    console.error("Unexpected data format:", books);
-    return <div>Unexpected data format</div>;
+  if (isError) {
+    return <div>Error fetching books</div>;
   }
 
-  // Reverse the books array to show new books first
-  const reversedBooks = [...books].reverse();
+  const books = data?.books || [];
+  const totalPages = data?.totalPages || 1;
 
   // Function to format date to IST (Indian Standard Time)
   const formatToIST = (date: string) =>
@@ -107,7 +101,7 @@ const BooksPage = () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {books.length > 0 ? (
-              reversedBooks.map((book: Book) => (
+              books.map((book: Book) => (
                 <tr key={book._id}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <img
@@ -150,6 +144,23 @@ const BooksPage = () => {
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className={`py-2 px-4 rounded ${currentPage === 1 ? "bg-gray-200" : "bg-blue-500 text-white hover:bg-blue-700"}`}
+        >
+          Previous
+        </button>
+        <span className="text-gray-700">Page {currentPage} of {totalPages}</span>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+          className={`py-2 px-4 rounded ${currentPage === totalPages ? "bg-gray-200" : "bg-blue-500 text-white hover:bg-blue-700"}`}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

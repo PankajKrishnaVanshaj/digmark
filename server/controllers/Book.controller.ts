@@ -242,21 +242,32 @@ const getBooksByAuthor = async (
   next: NextFunction
 ) => {
   try {
-    const books = await bookModel.find({
-      author: (req as AuthRequest).userId,
-    });
+    const { page = 1, limit = 10 } = req.query;
+    const authorId = (req as AuthRequest).userId;
 
-    if (books.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No books found for this author." });
+    const totalBooks = await bookModel.countDocuments({ author: authorId });
+    const books = await bookModel
+      .find({ author: authorId })               // Filter by authorId
+      .skip((+page - 1) * +limit)              // Skip the appropriate number of books for pagination
+      .limit(+limit)                           // Limit the number of books per page
+      .sort({ createdAt: -1 });                // Sort books by creation date in descending order
+
+
+    if (!books.length) {
+      return res.status(404).json({ message: "No books found for this author." });
     }
 
-    res.json({ message: "Books retrieved successfully", books });
+    res.json({
+      message: "Books retrieved successfully",
+      books,
+      totalPages: Math.ceil(totalBooks / +limit),
+    });
   } catch (err: any) {
-    return next(createHttpError(500, "Error listing books: " + err.message));
+    next(createHttpError(500, "Error listing books: " + err.message));
   }
 };
+
+
 
 const getSingleBook = async (
   req: Request,
@@ -278,4 +289,19 @@ const getSingleBook = async (
   }
 };
 
-export { createBook, updateBook, getBooksByAuthor, getSingleBook, deleteBook };
+
+const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const books = await bookModel.find()
+
+    if (books.length === 0) {
+      return res.status(404).json({ message: "No books found." });
+    }
+
+    res.json(books);
+  } catch (err: any) {
+    return next(createHttpError(500, "Error listing books: " + err.message));
+  }
+};
+
+export { createBook, updateBook, getBooksByAuthor, getSingleBook, deleteBook, getAllBooks };

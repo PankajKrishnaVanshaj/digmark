@@ -57,11 +57,9 @@ export const register = async (data: {
 
 // Books APIs
 // Fetch list of books
-export const getBooksByAuthor = async () => {
+export const getBooksByAuthor = async (page: number, limit: number) => {
   try {
-    const response = await api.get<{ books: Book[] }>(
-      "/books/get-books-by-author"
-    );
+    const response = await api.get(`/books/get-books-by-author?page=${page}&limit=${limit}`);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -71,6 +69,8 @@ export const getBooksByAuthor = async () => {
     }
   }
 };
+
+
 
 // Create a new book
 export const createBook = async (data: FormData) => {
